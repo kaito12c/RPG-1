@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p>onChange時に文字数をカウント</p>
+        <textarea
+            cols="20"
+            rows="2"
+            onChange="countLength(value, 'textlength1');"
+        ></textarea>
+        <p id="textlength1">0文字</p>
+​
+        <p>onKeyUp時に文字数をカウント(10文字以上で赤字)</p>
+        <textarea
+            cols="20"
+            rows="2"
+            onKeyUp="countLength(value, 'textlength2');"
+        ></textarea>
+​
+        <p id="textlength2">0文字</p>
+​
+        <script>
+            function countLength(text, field) {
+                document.getElementById(field).innerHTML = text.length + "文字";
+                let sizeLimit=150;
+                if (text.length >= sizeLimit) {
+                    document.getElementById(field).style.color="#FF0000";
+                    document.getElementById(field).innerHTML = text.length + `文字以上で${sizeLimit}を超えています`
+                }else{
+                    document.getElementById(field).style.color="#000000";
+                    document.getElementById(field).innerHTML = text.length + "文字";
+                }
+            }
+        </script>
+    </body>
+</html>

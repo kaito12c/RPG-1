@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リアルタイム検索型todoリスト</title>
+</head>
+
+<body>
+  <fieldset>
+    <legend>リアルタイム検索型Missionリスト</legend>
+    <a href="mission/mission_read.php">入力画面</a>
+    <div>
+      検索フォーム：<input type="text" id="search">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Who</th>
+          <th>deadline</th>
+          <th>mission_goal</th>
+          <th>mission</th>
+        </tr>
+      </thead>
+      <tbody id="list">
+        <!-- ここに<tr><td>deadline</td><td>todo</td><tr>の形でデータが入る -->
+      </tbody>
+    </table>
+  </fieldset>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+    
+    $('#search').on('keyup', function () {
+      console.log($(this).val());
+      const searchWord = $(this).val();
+      const requestUrl = 'ajax_get.php';
+      axios.get(`${requestUrl}?=searchWord=${searchWord}`)
+      .then(function(response){
+        console.log(response);
+	
+
+      const data = [];
+      response.data.forEach(function(x){
+        data.push(`<tr><td>${x.name}</td><td>${x.deadline}</td><td>${x.mission_goal}</td><td>${x.mission}</td><td><button><a href='../result/result_input.php'>ミッションに挑戦</button></td></tr>`)
+      })
+      $('#list').html(data)
+      })
+      .catch()
+      .finally();
+
+    });
+
+  </script>
+</body>
+
+</html>
